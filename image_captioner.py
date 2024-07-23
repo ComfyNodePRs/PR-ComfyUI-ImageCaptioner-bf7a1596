@@ -1,5 +1,6 @@
-import dashscope
+import os
 import base64
+import dashscope
 import comfy.utils
 import numpy as np
 
@@ -24,7 +25,7 @@ class DashscopeConfig:
     CATEGORY = "Config"
     
     def set_api_key(self, api_key):
-        dashscope.api_key = api_key
+        os.environ['DASHSCOPE_API_KEY'] = api_key
         return {}
 
 class ImageCaptioner:
@@ -50,7 +51,7 @@ class ImageCaptioner:
         return ', '.join(final_tags)
 
     def generate_image_captions(self, image, user_prompt):
-        """Simple single round multimodal conversation call."""
+        dashscope.api_key = os.environ.get("DASHSCOPE_API_KEY")
         image = Image.fromarray((image.numpy() * 255).astype(np.uint8)[0])
         with BytesIO() as output:
             image.save(output, format="PNG")
