@@ -66,8 +66,8 @@ class ImageCaptioner:
             {
                 "role": "user",
                 "content": [
-                    {"image": {"url": image_url}},
-                    {"text": user_prompt}
+                    {"image": f"{image_url}"},
+                    {"text": f"{user_prompt}"}
                 ]
             }
         ]
